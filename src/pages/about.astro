@@ -1,4 +1,32 @@
 ---
+import "../styles/global.css";
+const pageTitle: string = "About Howoo";
+
+type Identity = {
+  firstName: string;
+  country: string;
+  occupation: string;
+  hobbies: string[];
+};
+const identity: Identity = {
+  firstName: "Howoo",
+  country: "Korea",
+  occupation: "Cat king",
+  hobbies: ["sleeping", "eating", "pooping"],
+};
+
+const skills: string[] = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "React",
+  "Astro",
+  "Writing Docs",
+];
+
+const skillColor = "red";
+const fontWeight = "bold";
+const textCase = "uppercase";
 ---
 
 <html lang="en">
@@ -7,13 +35,24 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>About</title>
+    <title>{pageTitle}</title>
+    <style define:vars={{ skillColor, fontWeight, textCase }}>
+      h1 {
+        color: purple;
+        font-size: 4rem;
+      }
+      .skill {
+        color: var(--skillColor);
+        font-weight: var(--fontWeight);
+        text-transform: var(--textCase);
+      }
+    </style>
   </head>
   <body>
     <a href="/">Home</a>
     <a href="/about/">About</a>
     <a href="/blog/">Blog</a>
-    <h1>About Howoo</h1>
+    <h1>{pageTitle}</h1>
     <h2>... and my new Astro site!</h2>
 
     <p>
@@ -25,5 +64,27 @@
       This site will update as I complete more of the tutorial, so keep checking
       back and see how my journey is going!
     </p>
+    <p>Here are a few facts about me:</p>
+    <ul>
+      <li>My name is {identity.firstName}.</li>
+      <li>
+        I live in {identity.country} and I work as a {identity.occupation}.
+      </li>
+      {
+        identity.hobbies.length > 0 && (
+          <li>
+            {identity.hobbies.length} of my hobbies are:
+            {identity.hobbies.join(", ")}
+          </li>
+        )
+      }
+    </ul>
+    <p>My skills are:</p>
+    <ul>
+      {
+        skills.length > 0 &&
+          skills.map((skill) => <li class="skill">{skill}</li>)
+      }
+    </ul>
   </body>
 </html>
